@@ -3,22 +3,36 @@ from tkinter import ttk, messagebox
 
 # Locations and their positions
 places = {
-    "A": (80, 150),
-    "B": (220, 70),
-    "C": (220, 230),
-    "D": (390, 70),
-    "E": (390, 230),
-    "F": (540, 150)
+    "A": (70, 65),
+    "B": (210, 65),
+    "C": (350, 65),
+    "D": (490, 65),
+    "E": (630, 65),
+    "F": (70, 170),
+    "G": (210, 170),
+    "H": (350, 170),
+    "I": (490, 170),
+    "J": (630, 170),
+    "K": (210, 275),
+    "L": (420, 275),
+    "M": (630, 275)
 }
 
 # Roads and their distances
 graph = {
-    "A": {"B": 4, "C": 2},
-    "B": {"A": 4, "C": 1, "D": 5},
-    "C": {"A": 2, "B": 1, "E": 8},
-    "D": {"B": 5, "E": 2, "F": 6},
-    "E": {"C": 8, "D": 2, "F": 3},
-    "F": {"D": 6, "E": 3}
+    "A": {"B": 4, "F": 7, "G": 9},
+    "B": {"A": 4, "C": 6, "G": 3, "H": 8},
+    "C": {"B": 6, "D": 5, "G": 4, "H": 2, "I": 7},
+    "D": {"C": 5, "E": 3, "H": 6, "I": 4, "J": 8},
+    "E": {"D": 3, "I": 9, "J": 5},
+    "F": {"A": 7, "G": 2, "H": 10, "K": 6},
+    "G": {"A": 9, "B": 3, "C": 4, "F": 2, "H": 3, "K": 5, "L": 8},
+    "H": {"B": 8, "C": 2, "D": 6, "F": 10, "G": 3, "I": 2, "K": 7, "L": 4, "M": 11},
+    "I": {"C": 7, "D": 4, "E": 9, "H": 2, "J": 3, "L": 5, "M": 9},
+    "J": {"D": 8, "E": 5, "I": 3, "L": 7, "M": 4},
+    "K": {"F": 6, "G": 5, "H": 7, "L": 3},
+    "L": {"G": 8, "H": 4, "I": 5, "J": 7, "K": 3, "M": 2},
+    "M": {"H": 11, "I": 9, "J": 4, "L": 2}
 }
 
 def dijkstra(start, end):
@@ -126,7 +140,7 @@ def find_path():
 # Main window
 root = tk.Tk()
 root.title("Dijkstra Shortest Path Finder")
-root.geometry("700x500")
+root.geometry("900x720")
 root.configure(bg="#0f172a")
 
 title = tk.Label(
@@ -158,7 +172,7 @@ end_box = ttk.Combobox(
     controls, values=list(graph.keys()),
     state="readonly", width=5
 )
-end_box.set("F")
+end_box.set("M")
 end_box.grid(row=0, column=3, padx=5)
 
 button = tk.Button(
@@ -169,7 +183,7 @@ button = tk.Button(
 button.grid(row=0, column=4, padx=10)
 
 canvas = tk.Canvas(
-    root, width=620, height=300,
+    root, width=720, height=340,
     bg="#1e293b", highlightthickness=0
 )
 canvas.pack(pady=10)
@@ -182,4 +196,5 @@ result_label = tk.Label(
 result_label.pack(pady=5)
 
 draw_graph()
+find_path()
 root.mainloop()
